@@ -40,7 +40,7 @@ static int current_test_passed = true;
 
 #ifdef CONFIG_BUFFER_OUTPUT
 #undef printf
-void 
+void
 sel4test_printf(const char *string) {
     if(buf_index == BUFFERING_DISABLED) {
         printf("%s", string);
@@ -55,7 +55,7 @@ sel4test_printf(const char *string) {
 #endif /* CONFIG_BUFFER_OUTPUT */
 
 
-void 
+void
 sel4test_start_suite(const char *name) {
 
 #ifdef CONFIG_PRINT_XML
@@ -73,10 +73,10 @@ sel4test_start_suite(const char *name) {
     current_test_passed = true;
 }
 
-void 
+void
 sel4test_end_suite(void) {
 #ifdef CONFIG_PRINT_XML
-    printf("</testsuite>\n"); 
+    printf("</testsuite>\n");
     buf_index = BUFFERING_DISABLED;
 #else
     if (num_tests_passed != num_tests) {
@@ -87,11 +87,11 @@ sel4test_end_suite(void) {
 #endif /* CONFIG_PRINT_XML */
 }
 
-void 
+void
 sel4test_start_test(const char *name) {
 #ifdef CONFIG_BUFFER_OUTPUT
     buf_index = 0;
-    memset(current_stdout_bank, 0, STDOUT_CACHE); 
+    memset(current_stdout_bank, 0, STDOUT_CACHE);
 #endif /* CONFIG_BUFFER_OUTPUT */
 #ifdef CONFIG_PRINT_XML
     printf("\t<testcase classname=\"%s\" name=\"%s\">\n", sel4test_name, name);
@@ -102,18 +102,18 @@ sel4test_start_test(const char *name) {
     current_test_passed = true;
 }
 
-void 
+void
 _sel4test_report_error(const char *error, const char *file, int line) {
 #ifdef CONFIG_PRINT_XML
     printf("\t\t<error>%s at line %d of file %s</error>\n", error, line, file);
 #else
-    printf("\tError: %s at line %d of file %s\n", error, line, file);    
+    printf("\tError: %s at line %d of file %s\n", error, line, file);
 #endif /* CONFIG_PRINT_XML */
     current_test_passed = false;
 }
 
 
-void 
+void
 _sel4test_failure(const char *failure, const char *file, int line) {
 #ifdef CONFIG_PRINT_XML
     printf("\t\t<failure type=\"failure\">%s at line %d of file %s</failure>\n", failure, line, file);
@@ -123,7 +123,7 @@ _sel4test_failure(const char *failure, const char *file, int line) {
     current_test_passed = false;
 }
 
-void 
+void
 sel4test_end_test(void) {
     if (current_test_passed) {
         num_tests_passed++;
@@ -141,8 +141,8 @@ sel4test_end_test(void) {
 #endif /* CONFIG_PRINT_XML */
 }
 
-bool 
-sel4test_get_result(void) 
+bool
+sel4test_get_result(void)
 {
     return current_test_passed;
 }
@@ -162,9 +162,9 @@ extern struct testcase __stop__test_case[];
 static USED SECTION("_test_case") struct {} dummy;
 
 testcase_t*
-sel4test_get_test(const char *name) 
+sel4test_get_test(const char *name)
 {
-    
+
     for (testcase_t *t = __start__test_case; t < __stop__test_case; t++) {
         if (strcmp(name, t->name) == 0) {
             return t;
@@ -197,11 +197,11 @@ sel4test_run_tests(const char *name, int (*run_test)(struct testcase *t)) {
              num_tests++;
          }
      }
-     
+
     regfree(&reg);
 
     /* Sort the tests to remove any non determinism in test ordering */
-    qsort(tests, num_tests, sizeof(struct testcase*), test_comparator);
+    //qsort(tests, num_tests, sizeof(struct testcase*), test_comparator);
 
     /* Now that they are sorted we can easily ensure there are no duplicate tests.
      * this just ensures some sanity as if there are duplicates, they could have some
@@ -238,7 +238,7 @@ sel4test_run_tests(const char *name, int (*run_test)(struct testcase *t)) {
          }
          sel4test_end_test();
      }
- 
+
      sel4test_end_suite();
 
      /* Print closing banner. */
@@ -252,5 +252,6 @@ sel4test_run_tests(const char *name, int (*run_test)(struct testcase *t)) {
          printf("All is well in the universe.\n");
      }
      printf("\n\n");
+     while(1);
 }
 

@@ -624,3 +624,4 @@ simple_get_extended_bootinfo(simple_t *simple, seL4_Word type, void *dest, ssize
 }
 
 #endif /* _INTERFACE_SIMPLE_H_ */
+

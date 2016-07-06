@@ -12,10 +12,7 @@
 
 #pragma once
 
-#include <sel4platsupport/timer_types.h>
-
-#include <sel4platsupport/mach/epit.h>
-#include <sel4platsupport/mach/gpt.h>
+//#include <sel4platsupport/timer_types.h>
 
 typedef struct plat_timer_objects {
     /* clock timer */

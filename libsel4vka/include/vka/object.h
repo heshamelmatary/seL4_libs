@@ -154,7 +154,7 @@ static inline int vka_alloc_notification(vka_t *vka, vka_object_t *result)
 }
 
 /* @deprecated use vka_alloc_notification */
-static inline int DEPRECATED("Use vka_alloc_notification") 
+static inline int DEPRECATED("Use vka_alloc_notification")
 vka_alloc_async_endpoint(vka_t *vka, vka_object_t *result)
 {
     return vka_alloc_notification(vka, result);

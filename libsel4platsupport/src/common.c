@@ -56,12 +56,16 @@ static simple_t _simple_mem;
 static vka_t _vka_mem;
 
 /* Hacky constants / data structures for a failsafe mapping */
+#ifdef ARCH_RISCV
+#define DITE_HEADER_START ((seL4_Word) 0x1000 - 0x1000)
+#else
 #define DITE_HEADER_START ((seL4_Word)__executable_start - 0x1000)
+#endif
 static seL4_CPtr device_cap = 0;
 extern char __executable_start[];
 
 
-#if !(defined(CONFIG_LIB_SEL4_PLAT_SUPPORT_USE_SEL4_DEBUG_PUTCHAR) && defined(CONFIG_DEBUG_BUILD))
+#if !(defined(CONFIG_LIB_SEL4_PLAT_SUPPORT_USE_SEL4_DEBUG_PUTCHAR) && defined(CONFIG_PRINTING))
 static void* __map_device_page(void* cookie, uintptr_t paddr, size_t size,
                                int cached, ps_mem_flags_t flags);
 
@@ -215,7 +219,7 @@ platsupport_serial_setup_bootinfo_failsafe(void)
     }
     memset(&_simple_mem, 0, sizeof(simple_t));
     memset(&_vka_mem, 0, sizeof(vka_t));
-#if defined(CONFIG_LIB_SEL4_PLAT_SUPPORT_USE_SEL4_DEBUG_PUTCHAR) && defined(CONFIG_DEBUG_BUILD)
+#if defined(CONFIG_PRINTING)
     /* only support putchar on a debug kernel */
     setup_status = SETUP_COMPLETE;
 #else
@@ -247,7 +251,7 @@ platsupport_serial_setup_simple(
         assert(!"You cannot recover");
         return -1;
     }
-#if defined(CONFIG_LIB_SEL4_PLAT_SUPPORT_USE_SEL4_DEBUG_PUTCHAR) && defined(CONFIG_DEBUG_BUILD)
+#if defined(CONFIG_PRINTING)
     /* only support putchar on a debug kernel */
     setup_status = SETUP_COMPLETE;
 #else
@@ -308,7 +312,7 @@ void WEAK NO_INLINE
 __arch_putchar(int c)
 {
     if (setup_status != SETUP_COMPLETE) {
-        __serial_setup();
+        //__serial_setup();
     }
     __plat_putchar(c);
 }
@@ -317,7 +321,7 @@ int
 __arch_getchar(void)
 {
     if (setup_status != SETUP_COMPLETE) {
-        __serial_setup();
+        //__serial_setup();
     }
     return __plat_getchar();
 }
