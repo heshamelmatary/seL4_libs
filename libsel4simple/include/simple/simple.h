@@ -543,3 +543,4 @@ simple_print(simple_t *simple)
     simple->print(simple->data);
 }
 #endif /* _INTERFACE_SIMPLE_H_ */
+

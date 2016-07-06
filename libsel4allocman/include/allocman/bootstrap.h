@@ -282,3 +282,4 @@ bootstrap_info_t *bootstrap_create_info(size_t pool_size, void *pool);
 allocman_t *bootstrap_create_allocman(size_t pool_size, void *pool);
 
 #endif
+

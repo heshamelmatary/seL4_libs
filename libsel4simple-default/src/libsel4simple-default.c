@@ -199,3 +199,4 @@ void simple_default_init_bootinfo(simple_t *simple, seL4_BootInfo *bi) {
     simple_default_init_arch_simple(&simple->arch_simple, NULL);
 }
 
+

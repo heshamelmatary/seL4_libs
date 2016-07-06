@@ -218,7 +218,7 @@ reserve_range(vspace_t *vspace, uintptr_t start, uintptr_t end)
  * what virtual addresses are taken up by the current task
  */
 void
-sel4utils_get_image_region(uintptr_t *va_start, uintptr_t *va_end)
+sel4utils_get_image_region(seL4_Word *va_start, seL4_Word *va_end)
 {
     extern char __executable_start[];
     extern char _end[];
