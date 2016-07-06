@@ -17,7 +17,7 @@
 #include <string.h>
 
 #include <sel4/sel4.h>
-#include <sel4debug/debug.h>
+//#include <sel4debug/debug.h>
 #include <simple-default/simple-default.h>
 
 #include <vspace/page.h>
@@ -175,7 +175,7 @@ void simple_default_print(void *data) {
         ZF_LOGE("Data is null!");
     }
 
-    debug_print_bootinfo(data);
+    //debug_print_bootinfo(data);
 }
 
 seL4_Word simple_default_arch_info(void *data) {
@@ -232,4 +232,5 @@ void simple_default_init_bootinfo(simple_t *simple, seL4_BootInfo *bi) {
     simple->extended_bootinfo = &simple_default_get_extended_bootinfo;
     simple_default_init_arch_simple(&simple->arch_simple, NULL);
 }
+
 
