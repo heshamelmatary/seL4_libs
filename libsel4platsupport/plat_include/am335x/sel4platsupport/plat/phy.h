@@ -105,6 +105,9 @@ extern "C" {
 #define PHY_SPEED_100MBPS                 (0x2000u)
 #define PHY_SPEED_1000MBPS                (0x0004u)
 
+/* Duplex settings for BCR register */
+#define PHY_FULL_DUPLEX                   (0x0100)
+
     /**************************************************************************
                             API function Prototypes
     **************************************************************************/
