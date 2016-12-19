@@ -55,6 +55,7 @@
 #include <sel4platsupport/plat/hw/hw_types.h>
 #include <sel4platsupport/plat/beaglebone.h>
 #include <sel4platsupport/plat/hw/hw_cm_per.h>
+#include <stdint.h>
 
 /******************************************************************************
 **                       INTERNAL MACRO DEFINITIONS
@@ -75,35 +76,39 @@
  * \return  None.
  *
  */
-void CPSWPinMuxSetup(void)
+void CPSWPinMuxSetup(uintptr_t soc_control_reg)
 {
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_RXERR) =
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_RXERR) =
         CONTROL_CONF_MII1_RXERR_CONF_MII1_RXERR_RXACTIVE | CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_TXEN) =  CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_RXDV) =
-        CONTROL_CONF_MII1_RXDV_CONF_MII1_RXDV_RXACTIVE | CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_TXD3) =  CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_TXD2) =  CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_TXD1) =  CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_TXD0) =  CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_TXCLK) =
-        CONTROL_CONF_MII1_TXCLK_CONF_MII1_TXCLK_RXACTIVE | CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_RXCLK) =
-        CONTROL_CONF_MII1_RXCLK_CONF_MII1_RXCLK_RXACTIVE | CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_RXD3) =
-        CONTROL_CONF_MII1_RXD3_CONF_MII1_RXD3_RXACTIVE | CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_RXD2) =
-        CONTROL_CONF_MII1_RXD2_CONF_MII1_RXD2_RXACTIVE | CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_RXD1) =
-        CONTROL_CONF_MII1_RXD1_CONF_MII1_RXD1_RXACTIVE | CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MII1_RXD0) =
-        CONTROL_CONF_MII1_RXD0_CONF_MII1_RXD0_RXACTIVE | CPSW_MII_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MDIO_DATA) =
-        CONTROL_CONF_MDIO_DATA_CONF_MDIO_DATA_RXACTIVE
-        | CONTROL_CONF_MDIO_DATA_CONF_MDIO_DATA_PUTYPESEL
-        | CPSW_MDIO_SEL_MODE;
-    HWREG(SOC_CONTROL_REGS + CONTROL_CONF_MDIO_CLK) =
-        CONTROL_CONF_MDIO_CLK_CONF_MDIO_CLK_PUTYPESEL | CPSW_MDIO_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_TXEN) =  CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_RXDV) =
+         CONTROL_CONF_MII1_RXDV_CONF_MII1_RXDV_RXACTIVE | CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_TXD3) =  CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_TXD2) =  CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_TXD1) =  CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_TXD0) =  CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_TXCLK) =
+          CONTROL_CONF_MII1_TXCLK_CONF_MII1_TXCLK_RXACTIVE | CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_RXCLK) =
+         CONTROL_CONF_MII1_RXCLK_CONF_MII1_RXCLK_RXACTIVE | CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_RXD3) =
+         CONTROL_CONF_MII1_RXD3_CONF_MII1_RXD3_RXACTIVE | CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_RXD2) =
+         CONTROL_CONF_MII1_RXD2_CONF_MII1_RXD2_RXACTIVE | CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_RXD1) =
+         CONTROL_CONF_MII1_RXD1_CONF_MII1_RXD1_RXACTIVE | CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_RXD0) =
+         CONTROL_CONF_MII1_RXD0_CONF_MII1_RXD0_RXACTIVE | CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_COL) =
+               CONTROL_CONF_MII1_COL_CONF_MII1_COL_RXACTIVE | CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MII1_CRS) =
+               CONTROL_CONF_MII1_CRS_CONF_MII1_CRS_RXACTIVE | CPSW_MII_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MDIO_DATA) =
+         CONTROL_CONF_MDIO_DATA_CONF_MDIO_DATA_RXACTIVE
+         | CONTROL_CONF_MDIO_DATA_CONF_MDIO_DATA_PUTYPESEL
+         | CPSW_MDIO_SEL_MODE;
+    HWREG(soc_control_reg + CONTROL_CONF_MDIO_CLK) =
+         CONTROL_CONF_MDIO_CLK_CONF_MDIO_CLK_PUTYPESEL | CPSW_MDIO_SEL_MODE;
 }
 
 /**
@@ -113,19 +118,19 @@ void CPSWPinMuxSetup(void)
  *
  * \return  None.
  */
-void CPSWClkEnable(void)
+void CPSWClkEnable(uintptr_t soc_prcm_reg)
 {
-    HWREG(SOC_PRCM_REGS + CM_PER_CPGMAC0_CLKCTRL) =
-        CM_PER_CPGMAC0_CLKCTRL_MODULEMODE_ENABLE;
+    HWREG(soc_prcm_reg + CM_PER_CPGMAC0_CLKCTRL) =
+                      CM_PER_CPGMAC0_CLKCTRL_MODULEMODE_ENABLE;
 
-    while (0 != (HWREG(SOC_PRCM_REGS + CM_PER_CPGMAC0_CLKCTRL)
-                 & CM_PER_CPGMAC0_CLKCTRL_IDLEST));
+    while(0 != (HWREG(soc_prcm_reg + CM_PER_CPGMAC0_CLKCTRL)
+                & CM_PER_CPGMAC0_CLKCTRL_IDLEST));
 
-    HWREG(SOC_PRCM_REGS + CM_PER_CPSW_CLKSTCTRL) =
-        CM_PER_CPSW_CLKSTCTRL_CLKTRCTRL_SW_WKUP;
+    HWREG(soc_prcm_reg + CM_PER_CPSW_CLKSTCTRL) =
+                      CM_PER_CPSW_CLKSTCTRL_CLKTRCTRL_SW_WKUP;
 
-    while (0 == (HWREG(SOC_PRCM_REGS + CM_PER_CPSW_CLKSTCTRL)
-                 & CM_PER_CPSW_CLKSTCTRL_CLKACTIVITY_CPSW_125MHZ_GCLK));
+    while(0 == (HWREG(soc_prcm_reg + CM_PER_CPSW_CLKSTCTRL)
+                & CM_PER_CPSW_CLKSTCTRL_CLKACTIVITY_CPSW_125MHZ_GCLK));
 }
 
 /**
@@ -135,10 +140,10 @@ void CPSWClkEnable(void)
  *
  * \return  None.
  */
-void EVMPortMIIModeSelect(void)
+void EVMPortMIIModeSelect(uintptr_t soc_control_reg)
 {
     /* Select MII, Internal Delay mode */
-    HWREG(SOC_CONTROL_REGS + CONTROL_GMII_SEL) = 0x00;
+    HWREG(soc_control_reg + CONTROL_GMII_SEL) = 0x00;
 }
 
 /**
@@ -150,19 +155,19 @@ void EVMPortMIIModeSelect(void)
  *
  * \return  None.
  */
-void EVMMACAddrGet(unsigned int addrIdx, unsigned char *macAddr)
+void EVMMACAddrGet(uintptr_t soc_control_reg, unsigned int addrIdx, unsigned char *macAddr)
 {
-    macAddr[0] =  (HWREG(SOC_CONTROL_REGS + CONTROL_MAC_ID_LO(addrIdx))
+    macAddr[0] =  (HWREG(soc_control_reg + CONTROL_MAC_ID_LO(addrIdx))
                    >> 8) & 0xFF;
-    macAddr[1] =  (HWREG(SOC_CONTROL_REGS + CONTROL_MAC_ID_LO(addrIdx)))
+    macAddr[1] =  (HWREG(soc_control_reg + CONTROL_MAC_ID_LO(addrIdx)))
                   & 0xFF;
-    macAddr[2] =  (HWREG(SOC_CONTROL_REGS + CONTROL_MAC_ID_HI(addrIdx))
+    macAddr[2] =  (HWREG(soc_control_reg + CONTROL_MAC_ID_HI(addrIdx))
                    >> 24) & 0xFF;
-    macAddr[3] =  (HWREG(SOC_CONTROL_REGS + CONTROL_MAC_ID_HI(addrIdx))
+    macAddr[3] =  (HWREG(soc_control_reg + CONTROL_MAC_ID_HI(addrIdx))
                    >> 16) & 0xFF;
-    macAddr[4] =  (HWREG(SOC_CONTROL_REGS + CONTROL_MAC_ID_HI(addrIdx))
+    macAddr[4] =  (HWREG(soc_control_reg + CONTROL_MAC_ID_HI(addrIdx))
                    >> 8) & 0xFF;
-    macAddr[5] =  (HWREG(SOC_CONTROL_REGS + CONTROL_MAC_ID_HI(addrIdx)))
+    macAddr[5] =  (HWREG(soc_control_reg + CONTROL_MAC_ID_HI(addrIdx)))
                   & 0xFF;
 }
 

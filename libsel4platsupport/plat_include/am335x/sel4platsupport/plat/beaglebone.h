@@ -45,6 +45,8 @@
 extern "C" {
 #endif
 
+#include <stdint.h>
+
     /*****************************************************************************
     **                    FUNCTION PROTOTYPES
     *****************************************************************************/
@@ -53,17 +55,17 @@ extern "C" {
     extern void GPIO0ModuleClkConfig(void);
     extern void UART0ModuleClkConfig(void);
     extern void UARTPinMuxSetup(unsigned int instanceNum);
-    extern void CPSWPinMuxSetup(void);
-    extern void CPSWClkEnable(void);
+    extern void CPSWPinMuxSetup(uintptr_t soc_ctrl_reg);
+    extern void CPSWClkEnable(uintptr_t soc_prcm_reg);
     extern unsigned int RTCRevisionInfoGet(void);
     extern void EDMAModuleClkConfig(void);
-    extern void EVMMACAddrGet(unsigned int addrIdx, unsigned char *macAddr);
+    extern void EVMMACAddrGet(uintptr_t soc_ctrl_reg, unsigned int addrIdx, unsigned char *macAddr);
     extern void WatchdogTimer1ModuleClkConfig(void);
     extern void DMTimer2ModuleClkConfig(void);
     extern void DMTimer3ModuleClkConfig(void);
     extern void DMTimer4ModuleClkConfig(void);
     extern void DMTimer7ModuleClkConfig(void);
-    extern void EVMPortMIIModeSelect(void);
+    extern void EVMPortMIIModeSelect(uintptr_t soc_ctrl_re);
     extern void RTCModuleClkConfig(void);
     extern void HSMMCSDModuleClkConfig(void);
     extern void HSMMCSDPinMuxSetup(void);
