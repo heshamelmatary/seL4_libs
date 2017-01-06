@@ -16,7 +16,7 @@
 #include <inttypes.h>
 
 #include <sel4/sel4.h>
-#include <sel4debug/debug.h>
+//#include <sel4debug/debug.h>
 #include <simple-default/simple-default.h>
 
 #include <vspace/page.h>
@@ -174,7 +174,7 @@ void simple_default_print(void *data) {
         ZF_LOGE("Data is null!");
     }
 
-    debug_print_bootinfo(data);
+    //debug_print_bootinfo(data);
 }
 
 void simple_default_init_bootinfo(simple_t *simple, seL4_BootInfo *bi) {

@@ -18,13 +18,13 @@
 static inline void
 sel4utils_set_instruction_pointer(seL4_UserContext *regs, seL4_Word value)
 {
-    regs->ra = value;
+    regs->sepc = value;
 }
 
 static inline seL4_Word
 sel4utils_get_instruction_pointer(seL4_UserContext regs)
 {
-    return regs.ra;
+    return regs.sepc;
 }
 
 static inline seL4_Word

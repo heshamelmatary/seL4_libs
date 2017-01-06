@@ -20,8 +20,8 @@
 static inline int
 sel4utils_is_read_fault(void)
 {
-    printf("sel4utils_is_read_fault: Not implemented\n");
-    return 0;
+    seL4_Word fsr = seL4_GetMR(SEL4_PFIPC_FSR);
+    return (fsr == 1 || fsr == 2 || fsr == 5);
 }
 
 #endif /* _SEL4UTILS_ARCH_UTIL_H */
