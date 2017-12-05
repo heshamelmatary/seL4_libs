@@ -14,6 +14,7 @@
 #include <sel4/sel4.h>
 
 #define EXCEPT_IPC_SYS_MR_IP EXCEPT_IPC_SYS_MR_RIP
+#define ARCH_SYSCALL_INSTRUCTION_SIZE 4
 
 static inline void
 sel4utils_set_instruction_pointer(seL4_UserContext *regs, seL4_Word value)
