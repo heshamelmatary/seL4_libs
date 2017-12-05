@@ -60,6 +60,7 @@ static vka_t _vka_mem;
 #define DITE_HEADER_START ((seL4_Word) 0x1000 - 0x1000)
 #else
 #define DITE_HEADER_START ((seL4_Word)__executable_start - 0x1000)
+#endif
 static seL4_CPtr device_cap = 0;
 extern char __executable_start[];
 
