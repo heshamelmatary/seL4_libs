@@ -44,8 +44,14 @@ riscv_mode_kobject_get_type(kobject_t type, seL4_Word objectSize)
     switch (type) {
     case KOBJECT_FRAME:
         switch (objectSize) {
+#if CONFIG_PT_LEVELS > 2
         case seL4_HugePageBits:
-            return seL4_RISCV_1G_Page;
+            return seL4_RISCV_Giga_Page;
+#endif
+#if CONFIG_PT_LEVEL > 3
+        case seL4_TeraPageBits:
+            return seL4_RISCV_Tera_Page;
+#endif
         default:
             return -1;
         }

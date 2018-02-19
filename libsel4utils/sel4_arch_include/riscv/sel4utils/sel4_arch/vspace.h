@@ -13,10 +13,21 @@
 
 #include <autoconf.h>
 
-#define KERNEL_RESERVED_START 0xffffffff80000000
+#if CONFIG_PT_LEVELS == 2
+#define KERNEL_RESERVED_START 0x7ffff000
+#define VSPACE_LEVEL_BITS 10
+#elif CONFIG_PT_LEVELS == 3
+#define KERNEL_RESERVED_START 0x0000002ffffff000
+#define VSPACE_LEVEL_BITS 9
+#elif CONFIG_PT_LEVELS == 4
+#define KERNEL_RESERVED_START 0x00007ffffffff000
+#define VSPACE_LEVEL_BITS 9
+#else
+#error "Unsupported PT level"
+#endif
+
 #define VSPACE_MAP_PAGING_OBJECTS 5
 
-#define VSPACE_LEVEL_BITS 9 
-#define VSPACE_NUM_LEVELS 3
+#define VSPACE_NUM_LEVELS CONFIG_PT_LEVELS
 
 #endif /* SEL4UTILS_SEL4_ARCH_VSPACE_H */

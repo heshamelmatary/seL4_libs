@@ -15,8 +15,7 @@
 int
 sel4utils_arch_init_context(void *entry_point, void *stack_top, seL4_UserContext *context)
 {
-    //context->ra = (seL4_Word) entry_point;
-    context->sepc = (seL4_Word) entry_point;
+    context->pc = (seL4_Word) entry_point;
     context->sp = (seL4_Word) stack_top;
     if ((uintptr_t) stack_top % (sizeof(seL4_Word) * 2) != 0) {
         ZF_LOGE("Stack %p not aligned on double word boundary", stack_top);

@@ -20,12 +20,12 @@ sel4utils_create_object_at_level(vka_t *vka, seL4_Word failed_bits, vka_object_t
     int error;
     if (failed_bits == SEL4_MAPPING_LOOKUP_NO_LVL2PT) {
         vka_object_t object;
-        error = vka_alloc_lvl2pt(vka, &object);
+        error = vka_alloc_page_table(vka, &object);
         if (error) {
-            printf("Failed to allocate lvl2 page table");
+            printf("Failed to allocate page table");
             return error;
         }
-        error = seL4_RISCV_LVL2PageTable_Map(object.cptr, vspace_root, (seL4_Word)vaddr, seL4_RISCV_Default_VMAttributes);
+        error = seL4_RISCV_PageTable_Map(object.cptr, vspace_root, (seL4_Word)vaddr, seL4_RISCV_Default_VMAttributes);
         if (error == seL4_DeleteFirst) {
             /* through creating the object we must have ended up mapping this
              * level as part of the metadata creation. Delete this and keep

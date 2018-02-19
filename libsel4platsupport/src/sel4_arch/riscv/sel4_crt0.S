@@ -15,10 +15,19 @@
 #include <autoconf.h>
 
 #ifdef CONFIG_LIB_SEL4_PLAT_SUPPORT_SEL4_START
+#if __riscv_xlen == 32
+#define LW lw
+#define SW sw
+#define REGSIZE 4
+#else
+#define LW ld
+#define SW sd
+#define REGSIZE 8
+#endif
 
     .global _sel4_start
     .extern sel4_vsyscall
-    .extern __dso_handle 
+    .extern __dso_handle
 .text
 
 _sel4_start:
@@ -35,48 +44,48 @@ _sel4_start:
 
     /* Setup bootinfo. The pointer to the bootinfo struct starts in 'a0'. */
     //jal      seL4_InitBootInfo
-    /* Construct bootinfo environment variable */   
-    mv     a2, a0                                  
-    la     a0, bootinfo_storage                   
-    la     a1, bootinfo_format                    
-    jal    sprintf                                 
+    /* Construct bootinfo environment variable */
+    mv     a2, a0
+    la     a0, bootinfo_storage
+    la     a1, bootinfo_format
+    jal    sprintf
 
 
     /* Setup stack frame ready for jumping to _start */
-    addi sp, sp, -80
-    
+    addi sp, sp, -(10*REGSIZE)
+
     /* argc */
     li   a1, 1
-    sd   a1, 0(sp)
-    
+    SW   a1, 0(sp)
+
     /* prog name */
     la   a1, prog_name
-    sd   a1, 8(sp)
-    
+    SW   a1, (1*REGSIZE)(sp)
+
     /* Null-terminate arg vector */
-    sd   x0, 16(sp)
-    
+    SW   x0, (2*REGSIZE)(sp)
+
     /* Give an environment string */
     la   a1, environment_string
-    sd   a1, 24(sp)
+    SW   a1, (3*REGSIZE)(sp)
 
     /* Give bootinfo location */
     la   a1, bootinfo_storage
-    sd   a1, 32(sp)
+    SW   a1, (4*REGSIZE)(sp)
 
     /* Null terminate envp */
-    sd   x0, 40(sp)
+    SW   x0, (5*REGSIZE)(sp)
 
     /* give vsyscall location */
     li   a1, 32
-    sd   a1, 48(sp)
+    SW   a1, (6*REGSIZE)(sp)
     la   a1, sel4_vsyscall
-    sd   a1, 56(sp)
-    
+    SW   a1, (7*REGSIZE)(sp)
+
     /* null terminate auxv */
-    sd   x0, 64(sp)
-    sd   x0, 72(sp)
-    sd   x0, 80(sp)
+    SW   x0, (8*REGSIZE)(sp)
+    SW   x0, (9*REGSIZE)(sp)
+    SW   x0, (10*REGSIZE)(sp)
 
     /* Now go to actual _start */
     j       _start
@@ -84,11 +93,11 @@ _sel4_start:
 /* .text Literal Pool */
     .data
     .align  8
-bootinfo_format:         
-    .asciz "bootinfo=%p" 
+bootinfo_format:
+    .asciz "bootinfo=%p"
     .align  8
-bootinfo_storage:        
-    .space 29            
+bootinfo_storage:
+    .space 29
 
 environment_string:
     .asciz "seL4=1"
